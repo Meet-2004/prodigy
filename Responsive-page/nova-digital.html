@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Web Agency</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: transparent;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease-in-out;
+      z-index: 999;
+    }
+
+    nav.scrolled {
+      background: linear-gradient(90deg, #1e1e2f, #23234a);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .nav-container {
+      display: flex;
+      gap: 40px;
+    }
+
+    .nav-link {
+      color: #ffffff;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 18px;
+      position: relative;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .nav-link:hover {
+      color: #ffaf40;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      height: 3px;
+      width: 0;
+      background: #ffaf40;
+      transition: width 0.3s ease-in-out;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    section {
+      min-height: 100vh;
+      padding: 100px 40px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: #ffffff;
+    }
+
+    section h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    section p {
+      font-size: 20px;
+      max-width: 800px;
+      line-height: 1.6;
+    }
+
+    #home {
+      background: linear-gradient(120deg, #2c3e50, #3498db);
+    }
+
+    #about {
+      background: linear-gradient(120deg, #3e5151, #decba4);
+    }
+
+    #services {
+      background: linear-gradient(120deg, #2b5876, #4e4376);
+    }
+
+    #instagram {
+      background: linear-gradient(120deg, #1d2b64, #f8cdda);
+      color: #1a1a1a;
+    }
+
+    #contact {
+      background: linear-gradient(120deg, #232526, #414345);
+    }
+
+    footer {
+      background: #1a1a2e;
+      color: #eee;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#instagram" class="nav-link">Instagram</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+  </nav>
+
+  <section id="home">
+    <h1>Welcome to Nova Digital</h1>
+    <p>We craft beautiful digital experiences for startups, small businesses, and enterprises. Let us help you bring your ideas to life with design, development, and branding that speaks volumes.</p>
+  </section>
+
+  <section id="about">
+    <h1>About Us</h1>
+    <p>Nova Digital is a team of creative thinkers and problem solvers. We believe in clean code, eye-catching visuals, and user-first experiences. With over 5 years of experience, our goal is to make the web a better place.</p>
+  </section>
+
+  <section id="services">
+    <h1>Our Services</h1>
+    <p>From responsive websites and mobile apps to digital marketing and SEO, we provide comprehensive solutions tailored to your goals. Our services are driven by passion, powered by technology.</p>
+  </section>
+
+  <section id="instagram">
+    <h1>Instagram Strategy</h1>
+    <p>We help brands grow their audience and reach on Instagram by creating engaging content, optimizing posting schedules, and leveraging the latest trends and reels. Whether you're aiming for followers, engagement, or conversions, our Instagram marketing service is tailored to make your brand shine.</p>
+    <p>✅ Content Calendars & Story Templates<br>
+       ✅ Reel Strategy & Hashtag Research<br>
+       ✅ Influencer Collaboration Campaigns<br>
+       ✅ Analytics, Growth & Optimization</p>
+  </section>
+
+  <section id="contact">
+    <h1>Contact Us</h1>
+    <p>Ready to start your next project? Get in touch with us today. Whether it’s a quick question or a full consultation, we’re here to help make your vision a reality.</p>
+  </section>
+
+  <footer>
+    &copy; 2025 Nova Digital. All rights reserved.
+  </footer>
+
+  <script>
+    window.addEventListener("scroll", () => {
+      const nav = document.getElementById("navbar");
+      if (window.scrollY > 50) {
+        nav.classList.add("scrolled");
+      } else {
+        nav.classList.remove("scrolled");
+      }
+    });
+  </script>
+</body>
+</html>
