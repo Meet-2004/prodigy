@@ -1,9 +1,17 @@
 // Password protected resume download
-const RESUME_PASSWORD = "meet@1234";
+let userPassword = "";
 
 function handleResumeDownload() {
+  if (!userPassword) {
+    userPassword = prompt("Set your résumé password:");
+    if (!userPassword) {
+      alert("Password is required to enable résumé download.");
+      return;
+    }
+  }
+
   const input = prompt("Enter the résumé password:");
-  if (input === RESUME_PASSWORD) {
+  if (input === userPassword) {
     window.location.href = "resume.pdf";
   } else {
     alert("Incorrect password. Please try again.");
