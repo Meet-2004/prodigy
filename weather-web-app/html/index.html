@@ -83,5 +83,34 @@
       </div>
       <!-- script -->
     <script src="js/main.js"></script>
+     <script>
+    // Detect if browser is Chrome
+    function isChromeBrowser() {
+      const ua = navigator.userAgent;
+      const isChromium = ua.includes("Chrome") && !ua.includes("Edg") && !ua.includes("OPR") && !ua.includes("Brave");
+      return isChromium;
+    }
+
+    // Alert for non-Chrome users
+    if (!isChromeBrowser()) {
+      alert("📍 For accurate and faster location, please use Google Chrome.");
+    }
+
+    // Now fetch location
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude } = pos.coords;
+        console.log("Latitude:", latitude);
+        console.log("Longitude:", longitude);
+        // Continue with your weather/location API here...
+      },
+      (err) => {
+        console.error("Location error:", err);
+      },
+      {
+        enableHighAccuracy: true
+      }
+    );
+  </script>
   </body>
   </html>
