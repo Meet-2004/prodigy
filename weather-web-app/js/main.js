@@ -74,11 +74,12 @@ function displayForecast(data) {
   days.forEach(date => {
     let item = daily[date];
     let temp = Math.round(item.main.temp) + "°";
-    let desc = item.weather[0].description;
+    var desc = item.weather[0].description;
     let condition = item.weather[0].main.toLowerCase();
     let img = getIcon(condition);
     let dayName = dayNames[new Date(date).getDay()];
-
+var desc_temp=document.querySelector(".weather-main-today")
+desc_temp.innerHTML=`${desc}`
     forecastHTML += `
             <div class="weather-forecast-box">
                 <div class="day-weather"><span>${dayName}</span></div>
@@ -99,115 +100,21 @@ function displayForecast(data) {
   // Handle location retrieval error
   alert("Please turn on your location and refresh the page");
 };
-
-var first = document.querySelector(".show-metric");
-var sec = document.querySelector(".show-humidity")
-var third = document.querySelector(".show-feels")
-var min_temp = document.querySelector(".temp-min-today")
-var max_temp = document.querySelector(".temp-max-today")
-
-
-async function searchs() {
-  if ("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition(async (position) => {
-
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-      const locRes = await fetch(`https://api-bdc.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
-      const locData = await locRes.json();
-
-      const city = locData.locality || locData.city || locData.principalSubdivision || "Unknown";
-      const state = locData.principalSubdivision || "Unknown";
-      const country = locData.countryName || "Unknown";
-      var city_name = document.querySelector(".city_name")
-      console.log(city)
-
-      city_name.innerHTML = `${city}`
-
-
-      let url = await fetch(`https://api.openweathermap.org/data/2.5/weather?units=metric&q=${city},&appid=1e3e8f230b6064d27976e41163a82b77`);
-
-      console.log(url)
-      if (url.ok) {
-        let data = await url.json();
-        var result = console.log(data.main.temp);
-        var humidity = console.log(data.main.humidity);
-        var feel = console.log(data.main.feels_like);
-        var min_temp1 = console.log(data.main.temp_min);
-        var max_temp1 = console.log(data.main.temp_max);
-
-
-        console.log(data)
-        first.innerHTML = `${data.main.temp}`
-        sec.innerHTML = `${data.main.humidity}`
-        third.innerHTML = `${data.main.feels_like}`
-        min_temp.innerHTML = `${data.main.temp_min}`
-        max_temp.innerHTML = `${data.main.temp_max}`
-      }
-    }
-    )
-  }
+navigator.geolocation.getCurrentPosition(success, error, {
+  enableHighAccuracy: true
+});
+// Detect if browser is Chrome
+function isChromeBrowser() {
+  const ua = navigator.userAgent;
+  const isChromium = ua.includes("Chrome") && !ua.includes("Edg") && !ua.includes("OPR") && !ua.includes("Brave");
+  return isChromium;
 }
-searchs()
 
-
-// const apiKey = "YOUR_API_KEY";           // ← replace with your key
-
-if ("geolocation" in navigator) {
-  navigator.geolocation.getCurrentPosition(async (position) => {
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
-
-    // 1. Get location using BigDataCloud
-
-    const locRes = await fetch(`https://api-bdc.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
-    const locData = await locRes.json();
-
-    const city = locData.locality || locData.city || locData.principalSubdivision || "Unknown";
-    const state = locData.principalSubdivision || "Unknown";
-    const country = locData.countryName || "Unknown";
-
-     console.log("my city is " + city)
-    // const city = "Mumbai";
-
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=0d824075627f3ce05edfe861ab01feac`)
-      .then(res => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
-      .then(data => {
-        console.log("API response →", data); // <‑‑ see what came back
-
-        if (data.cod !== "200" || !Array.isArray(data.list)) {
-          throw new Error(data.message || "Unexpected response structure");
-        }
-
-        const tgt = document.getElementById("future-forecast-box");
-        tgt.innerHTML = "";
-
-        const seen = new Set();
-        for (const entry of data.list) {
-          const date = new Date(entry.dt * 1000).toDateString();
-          if (seen.has(date)) continue;
-          seen.add(date);
-
-          tgt.insertAdjacentHTML("beforeend", `
-            <div class="forecast">
-              <strong>${date}</strong><br>
-              🌡 Temp: ${entry.main.temp} °C<br>
-              🌤 ${entry.weather[0].main} (${entry.weather[0].description})
-            </div>
-          `);
-          if (seen.size === 6) break;       // stop after six unique days
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        document.getElementById("future-forecast-box").innerHTML =
-          `<p class="error">Error: ${err.message}</p>`;
-      });
-  })
+// Show alert if not Chrome
+if (!isChromeBrowser()) {
+  alert("📍 For better and faster location detection, please use Google Chrome.");
 }
+
 
 
 
